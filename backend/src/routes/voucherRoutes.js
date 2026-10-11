@@ -1,0 +1,16 @@
+import { Router } from "express";
+import { authenticate, allowRoles } from "../middleware/authMiddleware.js";
+import { upload } from "../middleware/uploadMiddleware.js";
+import * as c from "../controllers/voucherController.js";
+const router = Router();
+router.use(authenticate);
+router.get("/", c.listVouchers);
+router.post("/", allowRoles("employee"), c.createVoucher);
+router.get("/:id", c.getVoucher);
+router.patch("/:id", allowRoles("employee"), c.updateVoucher);
+router.delete("/:id", allowRoles("employee"), c.deleteVoucher);
+router.post("/:id/submit", allowRoles("employee"), c.submitVoucher);
+router.post("/:id/employee-signature", allowRoles("employee"), upload.single("signature"), c.uploadEmployeeSignature);
+router.post("/:id/approve", allowRoles("director"), upload.single("signature"), c.approveVoucher);
+router.post("/:id/reject", allowRoles("director"), c.rejectVoucher);
+export default router;

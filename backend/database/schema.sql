@@ -1,0 +1,6 @@
+-- MongoDB is document-based; this file documents the logical collections for reviewers.
+-- users: name, email(unique), passwordHash, role, department, employeeId, timestamps
+-- vouchers: voucherNumber(unique), voucherDate, expenseDate, department, title, category,
+-- description, amount, employee(ObjectId), employeeName, employeeId, employeeSignature,
+-- directorSignature, status, approvalDate, rejectionReason, submittedAt, approvedBy, timestamps
+-- Indexes are declared in backend/src/models/User.js and Voucher.js.
